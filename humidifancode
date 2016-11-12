@@ -1,0 +1,35 @@
+/*-----( Import needed libraries )-----*/
+#include <dht11.h>
+
+/*-----( Declare objects )-----*/
+dht11 DHT11;
+
+/*-----( Declare Constants, Pin Numbers )-----*/
+int fanPin = 7;
+#define DHT11PIN 2
+
+void setup()   /*----( SETUP: RUNS ONCE )----*/
+{
+  pinMode(fanPin, OUTPUT);
+  Serial.begin(9600);
+}/*--(end setup )---*/
+
+void loop()   /*----( LOOP: RUNS CONSTANTLY )----*/
+{
+  Serial.println("\n");
+
+  int chk = DHT11.read(DHT11PIN);
+  Serial.print("Humidity (%): ");
+  
+  if (DHT11.humidity > 55.00){
+    Serial.println((float)DHT11.humidity, 2);
+    digitalWrite(fanPin, HIGH);
+    Serial.print("FAN ON");
+    delay(2000);}
+     
+  else{
+    Serial.println((float)DHT11.humidity, 2);
+    Serial.print("FAN OFF");
+    digitalWrite(fanPin, LOW);
+    delay(2000);}
+}/* --(end loop )-- */
